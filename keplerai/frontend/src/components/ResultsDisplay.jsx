@@ -193,7 +193,7 @@ const ResultsDisplay = ({ results, isLoading }) => {
                             className="prob-fill false-positive" 
                             style={{width: `${(prediction.prediction_details?.false_positive_prob || 0) * 100}%`}}
                           ></div>
-                          <span className="prob-value">{(prediction.prediction_details?.false_positive_prob || 0) * 100:.1f}%</span>
+                          <span className="prob-value">{((prediction.prediction_details?.false_positive_prob || 0) * 100).toFixed(1)}%</span>
                         </div>
                       </div>
                       <div className="probability-item">
@@ -203,7 +203,7 @@ const ResultsDisplay = ({ results, isLoading }) => {
                             className="prob-fill candidate" 
                             style={{width: `${(prediction.prediction_details?.candidate_prob || 0) * 100}%`}}
                           ></div>
-                          <span className="prob-value">{(prediction.prediction_details?.candidate_prob || 0) * 100:.1f}%</span>
+                          <span className="prob-value">{((prediction.prediction_details?.candidate_prob || 0) * 100).toFixed(1)}%</span>
                         </div>
                       </div>
                       <div className="probability-item">
@@ -213,7 +213,7 @@ const ResultsDisplay = ({ results, isLoading }) => {
                             className="prob-fill confirmed" 
                             style={{width: `${(prediction.prediction_details?.confirmed_prob || 0) * 100}%`}}
                           ></div>
-                          <span className="prob-value">{(prediction.prediction_details?.confirmed_prob || 0) * 100:.1f}%</span>
+                          <span className="prob-value">{((prediction.prediction_details?.confirmed_prob || 0) * 100).toFixed(1)}%</span>
                         </div>
                       </div>
                     </div>
