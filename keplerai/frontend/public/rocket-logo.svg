@@ -1,0 +1,51 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Rocket Body -->
+  <path d="M60 20 L75 45 L75 85 L60 100 L45 85 L45 45 Z" fill="url(#gradient1)" stroke="#00d4ff" stroke-width="2"/>
+  
+  <!-- Rocket Nose -->
+  <path d="M60 20 L70 35 L60 40 L50 35 Z" fill="url(#gradient2)" stroke="#00d4ff" stroke-width="2"/>
+  
+  <!-- Rocket Fins -->
+  <path d="M45 85 L35 95 L45 90 Z" fill="url(#gradient3)" stroke="#00d4ff" stroke-width="1"/>
+  <path d="M75 85 L85 95 L75 90 Z" fill="url(#gradient3)" stroke="#00d4ff" stroke-width="1"/>
+  
+  <!-- Rocket Window -->
+  <circle cx="60" cy="55" r="8" fill="#001122" stroke="#00d4ff" stroke-width="2"/>
+  <circle cx="60" cy="55" r="4" fill="#00d4ff" opacity="0.6"/>
+  
+  <!-- Exhaust Flames -->
+  <path d="M50 100 L55 110 L60 105 L65 110 L70 100" fill="url(#gradient4)" opacity="0.8"/>
+  <path d="M52 100 L56 108 L60 104 L64 108 L68 100" fill="url(#gradient5)" opacity="0.6"/>
+  
+  <!-- Stars -->
+  <circle cx="20" cy="25" r="1" fill="#ffffff" opacity="0.8"/>
+  <circle cx="100" cy="30" r="1.5" fill="#ffffff" opacity="0.9"/>
+  <circle cx="15" cy="60" r="1" fill="#ffffff" opacity="0.7"/>
+  <circle cx="105" cy="70" r="1" fill="#ffffff" opacity="0.8"/>
+  <circle cx="25" cy="90" r="1.5" fill="#ffffff" opacity="0.9"/>
+  <circle cx="95" cy="85" r="1" fill="#ffffff" opacity="0.7"/>
+  
+  <!-- Gradients -->
+  <defs>
+    <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#16213e;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f3460;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a1a2e;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="gradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#16213e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f3460;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="gradient4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff6b35;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f7931e;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="gradient5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffd700;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff6b35;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+</svg>
