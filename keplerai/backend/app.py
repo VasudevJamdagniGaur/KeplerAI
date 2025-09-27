@@ -65,8 +65,11 @@ def predict():
             # Get confidence score (max probability)
             confidence = float(max(prob)) * 100
             
+            # Get input data for this prediction
+            input_data = data[i] if isinstance(data, list) else data
+            
             # Generate AI explanation
-            explanation = generate_explanation(prediction, prob, feature_importance, data[i] if isinstance(data, list) else data)
+            explanation = generate_explanation(prediction, prob, feature_importance, input_data)
             
             # Get top contributing features
             top_features = [feature for feature, _ in feature_importance[:5]]
@@ -80,7 +83,14 @@ def predict():
                     "false_positive_prob": float(prob[0]),
                     "candidate_prob": float(prob[1]),
                     "confirmed_prob": float(prob[2])
-                }
+                },
+                # Include input data for supporting data table
+                "koi_period": input_data.get('koi_period'),
+                "koi_prad": input_data.get('koi_prad'),
+                "koi_teq": input_data.get('koi_teq'),
+                "koi_model_snr": input_data.get('koi_model_snr'),
+                "koi_depth": input_data.get('koi_depth'),
+                "koi_steff": input_data.get('koi_steff')
             }
             
             results.append(result)

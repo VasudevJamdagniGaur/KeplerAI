@@ -44,6 +44,59 @@
   font-size: 1.3rem;
 }
 
+.field-section {
+  margin-bottom: 2rem;
+}
+
+.section-header {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.section-header.required {
+  background: rgba(255, 0, 0, 0.1);
+  color: #ff6b6b;
+  border: 1px solid rgba(255, 0, 0, 0.3);
+}
+
+.section-header.optional {
+  background: rgba(255, 165, 0, 0.1);
+  color: #ffaa00;
+  border: 1px solid rgba(255, 165, 0, 0.3);
+}
+
+.form-group.required label {
+  color: #ff6b6b;
+  font-weight: 600;
+}
+
+.form-group.optional label {
+  color: #ffaa00;
+  font-weight: 500;
+}
+
+.form-group.required input {
+  border-color: rgba(255, 0, 0, 0.3);
+}
+
+.form-group.optional input {
+  border-color: rgba(255, 165, 0, 0.3);
+}
+
+.form-group.required input:focus {
+  border-color: #ff6b6b;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+}
+
+.form-group.optional input:focus {
+  border-color: #ffaa00;
+  box-shadow: 0 0 10px rgba(255, 165, 0, 0.3);
+}
+
 .form-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));

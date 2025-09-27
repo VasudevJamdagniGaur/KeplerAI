@@ -39,12 +39,19 @@ class ExoplanetMLPipeline:
         print(f"Dataset loaded: {df.shape[0]} rows, {df.shape[1]} columns")
         
         # Select relevant features for exoplanet classification
-        feature_columns = [
-            'koi_period', 'koi_impact', 'koi_duration', 'koi_depth',
-            'koi_prad', 'koi_teq', 'koi_insol', 'koi_model_snr',
-            'koi_steff', 'koi_slogg', 'koi_srad', 'koi_kepmag',
-            'koi_fpflag_nt', 'koi_fpflag_ss', 'koi_fpflag_co', 'koi_fpflag_ec'
+        # Required features
+        required_features = [
+            'koi_period', 'koi_duration', 'koi_depth', 'koi_prad', 
+            'koi_teq', 'koi_insol', 'koi_model_snr', 'koi_steff', 'koi_srad'
         ]
+        
+        # Optional features (use defaults if not provided)
+        optional_features = ['koi_impact', 'koi_score', 'koi_slogg']
+        
+        # False positive flags (always include)
+        fp_flags = ['koi_fpflag_nt', 'koi_fpflag_ss', 'koi_fpflag_co', 'koi_fpflag_ec']
+        
+        feature_columns = required_features + optional_features + fp_flags
         
         # Filter out rows where target variable is missing
         df = df.dropna(subset=['koi_disposition'])
@@ -146,15 +153,46 @@ class ExoplanetMLPipeline:
         if not self.is_trained:
             raise ValueError("Model must be trained or loaded before making predictions")
         
-        # Ensure X has the same columns as training data
-        X_processed = X[self.feature_columns].copy()
+        # Create a copy of X with all required columns
+        X_processed = pd.DataFrame(index=X.index)
         
-        # Fill missing values
+        # Add required features
+        required_features = [
+            'koi_period', 'koi_duration', 'koi_depth', 'koi_prad', 
+            'koi_teq', 'koi_insol', 'koi_model_snr', 'koi_steff', 'koi_srad'
+        ]
+        
+        for col in required_features:
+            if col in X.columns:
+                X_processed[col] = X[col]
+            else:
+                # Use median from training data if not provided
+                X_processed[col] = 0  # Will be filled with median later
+        
+        # Add optional features with defaults
+        optional_defaults = {
+            'koi_impact': 0.5,  # Default impact parameter
+            'koi_score': 0.5,   # Default disposition score
+            'koi_slogg': 4.5    # Default stellar surface gravity
+        }
+        
+        for col, default_val in optional_defaults.items():
+            if col in X.columns:
+                X_processed[col] = X[col].fillna(default_val)
+            else:
+                X_processed[col] = default_val
+        
+        # Add false positive flags (default to 0)
+        fp_flags = ['koi_fpflag_nt', 'koi_fpflag_ss', 'koi_fpflag_co', 'koi_fpflag_ec']
+        for col in fp_flags:
+            if col in X.columns:
+                X_processed[col] = X[col].fillna(0)
+            else:
+                X_processed[col] = 0
+        
+        # Fill any remaining missing values with median
         for col in X_processed.select_dtypes(include=[np.number]).columns:
             X_processed[col] = X_processed[col].fillna(X_processed[col].median())
-        
-        for col in X_processed.select_dtypes(include=['object']).columns:
-            X_processed[col] = X_processed[col].fillna(X_processed[col].mode()[0] if not X_processed[col].mode().empty else 0)
         
         # Scale the features
         X_scaled = self.scaler.transform(X_processed)

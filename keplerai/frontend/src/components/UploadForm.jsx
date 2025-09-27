@@ -5,8 +5,8 @@ import './UploadForm.css';
 const UploadForm = ({ onResults, onLoading }) => {
   const [uploadType, setUploadType] = useState('manual');
   const [formData, setFormData] = useState({
+    // Required fields
     koi_period: '',
-    koi_impact: '',
     koi_duration: '',
     koi_depth: '',
     koi_prad: '',
@@ -14,13 +14,11 @@ const UploadForm = ({ onResults, onLoading }) => {
     koi_insol: '',
     koi_model_snr: '',
     koi_steff: '',
-    koi_slogg: '',
     koi_srad: '',
-    koi_kepmag: '',
-    koi_fpflag_nt: '0',
-    koi_fpflag_ss: '0',
-    koi_fpflag_co: '0',
-    koi_fpflag_ec: '0'
+    // Optional fields
+    koi_impact: '',
+    koi_score: '',
+    koi_slogg: ''
   });
   const [file, setFile] = useState(null);
   const [error, setError] = useState('');
@@ -85,9 +83,8 @@ const UploadForm = ({ onResults, onLoading }) => {
     }
   };
 
-  const featureDescriptions = {
+  const requiredFields = {
     koi_period: 'Orbital Period (days)',
-    koi_impact: 'Impact Parameter',
     koi_duration: 'Transit Duration (hours)',
     koi_depth: 'Transit Depth (ppm)',
     koi_prad: 'Planetary Radius (Earth radii)',
@@ -95,9 +92,13 @@ const UploadForm = ({ onResults, onLoading }) => {
     koi_insol: 'Insolation Flux (Earth flux)',
     koi_model_snr: 'Transit Signal-to-Noise',
     koi_steff: 'Stellar Effective Temperature (K)',
-    koi_slogg: 'Stellar Surface Gravity',
-    koi_srad: 'Stellar Radius (Solar radii)',
-    koi_kepmag: 'Kepler-band Magnitude'
+    koi_srad: 'Stellar Radius (Solar radii)'
+  };
+
+  const optionalFields = {
+    koi_impact: 'Impact Parameter',
+    koi_score: 'Disposition Score',
+    koi_slogg: 'Stellar Surface Gravity'
   };
 
   return (
@@ -121,43 +122,51 @@ const UploadForm = ({ onResults, onLoading }) => {
         {uploadType === 'manual' ? (
           <div className="manual-input-section">
             <h3>Enter Celestial Body Data</h3>
-            <div className="form-grid">
-              {Object.keys(featureDescriptions).map(field => (
-                <div key={field} className="form-group">
-                  <label htmlFor={field}>
-                    {featureDescriptions[field]}
-                  </label>
-                  <input
-                    type="number"
-                    id={field}
-                    name={field}
-                    value={formData[field]}
-                    onChange={handleInputChange}
-                    step="any"
-                    placeholder={`Enter ${featureDescriptions[field].toLowerCase()}`}
-                  />
-                </div>
-              ))}
-              
-              {/* False Positive Flags */}
-              <div className="form-group">
-                <label>False Positive Flags (0 or 1)</label>
-                <div className="flag-inputs">
-                  {['koi_fpflag_nt', 'koi_fpflag_ss', 'koi_fpflag_co', 'koi_fpflag_ec'].map(flag => (
-                    <div key={flag} className="flag-group">
-                      <label htmlFor={flag}>{flag.replace('koi_fpflag_', '').toUpperCase()}</label>
-                      <select
-                        id={flag}
-                        name={flag}
-                        value={formData[flag]}
-                        onChange={handleInputChange}
-                      >
-                        <option value="0">0 (No Flag)</option>
-                        <option value="1">1 (Flagged)</option>
-                      </select>
-                    </div>
-                  ))}
-                </div>
+            
+            {/* Required Fields */}
+            <div className="field-section">
+              <h4 className="section-header required">Required Fields *</h4>
+              <div className="form-grid">
+                {Object.keys(requiredFields).map(field => (
+                  <div key={field} className="form-group required">
+                    <label htmlFor={field}>
+                      {requiredFields[field]} *
+                    </label>
+                    <input
+                      type="number"
+                      id={field}
+                      name={field}
+                      value={formData[field]}
+                      onChange={handleInputChange}
+                      step="any"
+                      placeholder={`Enter ${requiredFields[field].toLowerCase()}`}
+                      required
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Optional Fields */}
+            <div className="field-section">
+              <h4 className="section-header optional">Optional Fields</h4>
+              <div className="form-grid">
+                {Object.keys(optionalFields).map(field => (
+                  <div key={field} className="form-group optional">
+                    <label htmlFor={field}>
+                      {optionalFields[field]}
+                    </label>
+                    <input
+                      type="number"
+                      id={field}
+                      name={field}
+                      value={formData[field]}
+                      onChange={handleInputChange}
+                      step="any"
+                      placeholder={`Enter ${optionalFields[field].toLowerCase()}`}
+                    />
+                  </div>
+                ))}
               </div>
             </div>
           </div>
