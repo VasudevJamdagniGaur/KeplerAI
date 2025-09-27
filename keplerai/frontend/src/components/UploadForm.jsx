@@ -62,13 +62,13 @@ const UploadForm = ({ onResults, onLoading }) => {
           }
         });
 
-        response = await axios.post('http://localhost:5000/predict', numericData);
+        response = await axios.post('http://localhost:5001/predict', numericData);
       } else {
         // File upload
         const formDataFile = new FormData();
         formDataFile.append('file', file);
         
-        response = await axios.post('http://localhost:5000/predict_csv', formDataFile, {
+        response = await axios.post('http://localhost:5001/predict_csv', formDataFile, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
